@@ -9,7 +9,9 @@ def main():
     main_app = QApplication([])
     main_window = QWidget()
     main_window.setWindowTitle("Smart Wallpaper")
+    button = QPushButton()
     main_window.show()
+    center(main_window)
 
     main_app.exec_()
 
@@ -32,3 +34,10 @@ def initial_setup():
             print("Directory ", my_custom_dir, " already exists")
     main()
     # In case we need to do an inital setup, for example, create a folder in the ~/Pictures/ folder...
+
+def center(window_to_center):
+    frame = window_to_center.frameGeometry()
+    ecran_actif = QApplication.desktop().screenNumber(QApplication.desktop().cursor().pos())
+    point_central = QApplication.desktop().screenGeometry(ecran_actif).center()
+    frame.moveCenter(point_central)
+    window_to_center.move(frame.topLeft())
