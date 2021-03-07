@@ -1,14 +1,18 @@
 from PyQt5.QtWidgets import *
 import os
+import locale
 # End of imports
 
 
 # main function
-def main():
+def main(langauage):
     print("We are on macOS!!!")
     main_app = QApplication([])
     main_window = QWidget()
-    main_window.setWindowTitle("Smart Wallpaper")
+    if langauage == "fr":
+        main_window.setWindowTitle("Tableau de bord de Smart Wallpaper")
+    else:
+        main_window.setWindowTitle("Smart Wallpaper's Dashboard")
     button = QPushButton()
     main_window.show()
     center(main_window)
@@ -32,8 +36,17 @@ def initial_setup():
             print("Directory ", my_custom_dir, " Created ")
         except FileExistsError:
             print("Directory ", my_custom_dir, " already exists")
-    main()
+    test_language = locale.setlocale(locale.LC_ALL, "")
+    print(test_language)
+    if "fr" in test_language:
+        print("Français")
+        language = "fr"
+    else:
+        print("send to english")
+        language = "en"
+    main(language)
     # In case we need to do an inital setup, for example, create a folder in the ~/Pictures/ folder...
+
 
 def center(window_to_center):
     frame = window_to_center.frameGeometry()
