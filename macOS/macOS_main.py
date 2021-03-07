@@ -9,11 +9,18 @@ def main(langauage):
     print("We are on macOS!!!")
     main_app = QApplication([])
     main_window = QWidget()
+    main_window.setMinimumSize(852, 480)
+
+    presentation_button = QPushButton(main_window)
     if langauage == "fr":
         main_window.setWindowTitle("Tableau de bord de Smart Wallpaper")
+        presentation_button.setText("Présentation / Streaming")
     else:
         main_window.setWindowTitle("Smart Wallpaper's Dashboard")
-    button = QPushButton()
+        presentation_button.setText("Presentation / Streaming")
+    presentation_button.move(10, 10)
+    # presentation_button.clicked.connect()
+    # presentation_button.show()
     main_window.show()
     center(main_window)
 
