@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 def main():
     print("We are on macOS!!!")
-    main_app = QApplication()
+    main_app = QApplication([])
     main_window = QWidget()
     main_window.show()
 
