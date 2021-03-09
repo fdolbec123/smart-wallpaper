@@ -1,12 +1,15 @@
 from PyQt5.QtWidgets import *
 import os
 import locale
+import subprocess
+import json
 # End of imports
 
 
 # main function
 def main(langauage):
     print("We are on macOS!!!")
+    scan_screens()
     main_app = QApplication([])
     main_window = QWidget()
     main_window.setMinimumSize(852, 480)
@@ -71,3 +74,20 @@ def center(window_to_center):
     point_central = QApplication.desktop().screenGeometry(ecran_actif).center()
     frame.moveCenter(point_central)
     window_to_center.move(frame.topLeft())
+
+
+def scan_screens():
+    output = subprocess.getstatusoutput("system_profiler SPDisplaysDataType -json")
+    if output[0] == 0:
+        # print(output[1])
+        json_output = json.loads(output[1])
+        # print(json_output)
+        # sPDisplaysDataType = json_output["SPDisplaysDataType"]
+        # print(type(sPDisplaysDataType))
+        output_array = (json_output["SPDisplaysDataType"])
+        output_dict = output_array[0]
+        list_displays = output_dict["spdisplays_ndrvs"]
+        print(len(list_displays))
+
+    else:
+        print("Error! Can't get the information from command in terminal!")
