@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 import os
 import locale
 # import subprocess
@@ -12,33 +13,37 @@ def main(langauage):
     print("We are on macOS!!!")
     list_monitor = scan_screens()
     print(list_monitor)
-    display_screens(list_monitor)
     main_app = QApplication([])
     main_window = QWidget()
     main_window.setMinimumSize(852, 480)
+    x_value = int(main_window.width() / 8)
+    y_value = int(main_window.height() / 4)
+    display_screens(list_monitor, x_value, y_value, main_window)
     presentation_button = QPushButton(main_window)
     public_button = QPushButton(main_window)
     private_button = QPushButton(main_window)
     other_button = QPushButton(main_window)
+    refresh_button = QPushButton(main_window)
     if langauage == "fr":
         main_window.setWindowTitle("Tableau de bord de Smart Wallpaper")
         presentation_button.setText("Professionel")
         public_button.setText("Public")
         private_button.setText("Privé")
         other_button.setText("Autre...")
+        refresh_button.setText("Actualiser")
     else:
         main_window.setWindowTitle("Smart Wallpaper's Dashboard")
         presentation_button.setText("Professional")
         public_button.setText("Public")
         private_button.setText("Private")
         other_button.setText("Other...")
-    x_value = int(main_window.width() / 8)
-    y_value = int(main_window.height() / 4)
-    print(presentation_button.size().width())
+        refresh_button.setText("Refresh")
     presentation_button.move((x_value - (presentation_button.size().width()/2)), (3 * y_value))
     public_button.move(((3 * x_value) - (public_button.size().width()/2)), (3 * y_value))
     private_button.move(((5 * x_value) - (private_button.size().width()/2)), (3 * y_value))
     other_button.move(((7 * x_value) - (other_button.size().width()/2)), (3 * y_value))
+    refresh_button.move((main_window.width() - 10 - refresh_button.width()), 10)
+    refresh_button.clicked.connect(lambda: reset_screens_info(x_value, y_value, main_window))
     other_button.setEnabled(False)
     main_window.show()
     center(main_window)
@@ -111,6 +116,29 @@ def scan_screens():
     #     print("Error! Can't get the information from command in terminal!")
 
 
-def display_screens(list_of_avaible_screens):
+def display_screens(list_of_avaible_screens, x, y, main_window):
+    dict_screen = {}
+    index_value = len(list_of_avaible_screens)
     for index, item in enumerate(list_of_avaible_screens):
         print(index, item)
+        screen_icon = QPixmap("Ressources/icon_screen.png")
+        screen_icon = screen_icon.scaledToWidth(161)
+        screen_icon_label = QLabel(main_window)
+        screen_icon_label.setPixmap(screen_icon)
+
+        if "ACL" in item:
+            screen_label = QLabel(main_window)
+            screen_label.setText(item + "*")
+            print(screen_label)
+        else:
+            screen_label = QLabel(main_window)
+            screen_label.setText(item)
+            print(screen_label)
+        # vertical_box = QVBoxLayout(main_window)
+        # vertical_box.addWidget(screen_icon_label)
+        # vertical_box.addWidget(screen_label)
+
+
+def reset_screens_info(x, y, main_window):
+    list_reset = scan_screens()
+    display_screens(list_reset, x, y, main_window)
