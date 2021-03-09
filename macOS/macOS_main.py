@@ -31,10 +31,13 @@ def main(langauage):
         public_button.setText("Public")
         private_button.setText("Private")
         other_button.setText("Other...")
-    presentation_button.move(10, 10)
-    public_button.move(10, 40)
-    private_button.move(10, 70)
-    other_button.move(10, 100)
+    x_value = int(main_window.width() / 8)
+    y_value = int(main_window.height() / 4)
+    print(presentation_button.size().width())
+    presentation_button.move((x_value - (presentation_button.size().width()/2)), (3 * y_value))
+    public_button.move(((3 * x_value) - (public_button.size().width()/2)), (3 * y_value))
+    private_button.move(((5 * x_value) - (private_button.size().width()/2)), (3 * y_value))
+    other_button.move(((7 * x_value) - (other_button.size().width()/2)), (3 * y_value))
     other_button.setEnabled(False)
     main_window.show()
     center(main_window)
@@ -84,6 +87,9 @@ def scan_screens():
     print("Exit code is: " + str(script.code))
     if script.code == 0:
         list_of_monitor = script.out.split(", ")
+        if len(set(list_of_monitor)) < len(list_of_monitor):
+            print("Caution!!! Multiple monitors have the same name! There might be some conflicts and issues with this "
+                  "program!")
         return list_of_monitor
     else:
         print("Oh oh! There's an error while executing the script! The error is the following: " + script.err)
