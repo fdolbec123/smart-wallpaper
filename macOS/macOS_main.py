@@ -12,6 +12,7 @@ def main(langauage):
     print("We are on macOS!!!")
     list_monitor = scan_screens()
     print(list_monitor)
+    display_screens(list_monitor)
     main_app = QApplication([])
     main_window = QWidget()
     main_window.setMinimumSize(852, 480)
@@ -108,3 +109,8 @@ def scan_screens():
     #
     # else:
     #     print("Error! Can't get the information from command in terminal!")
+
+
+def display_screens(list_of_avaible_screens):
+    for index, item in enumerate(list_of_avaible_screens):
+        print(index, item)
