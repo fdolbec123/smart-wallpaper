@@ -18,7 +18,7 @@ def main(langauage):
     main_window.setMinimumSize(852, 480)
     x_value = int(main_window.width() / 8)
     y_value = int(main_window.height() / 4)
-    display_screens(list_monitor, x_value, y_value, main_window)
+    display_screens(list_monitor, x_value, y_value, main_window, langauage)
     presentation_button = QPushButton(main_window)
     public_button = QPushButton(main_window)
     private_button = QPushButton(main_window)
@@ -144,9 +144,9 @@ def scan_screens():
     #     print("Error! Can't get the information from command in terminal!")
 
 
-def display_screens(list_of_avaible_screens, x, y, main_window):
-    dict_screen = {}
-    index_value = len(list_of_avaible_screens)
+def display_screens(list_of_avaible_screens, x, y, main_window, language):
+    # dict_screen = {}
+    # index_value = len(list_of_avaible_screens)
     for index, item in enumerate(list_of_avaible_screens):
         print(index, item)
         screen_icon = QPixmap("Ressources/icon_screen.png")
@@ -157,6 +157,11 @@ def display_screens(list_of_avaible_screens, x, y, main_window):
         if "ACL" in item:
             screen_label = QLabel(main_window)
             screen_label.setText(item + "*")
+            screen_notice = QLabel(main_window)
+            if language == "fr":
+                screen_notice.setText("* Le nom de cet écran correspond probablement à l'écran interne de votre Mac.")
+            else:
+                screen_notice.setText("* This is probably the name of your internal Mac screen.")
             print(screen_label)
         else:
             screen_label = QLabel(main_window)
