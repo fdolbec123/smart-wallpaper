@@ -1,15 +1,17 @@
 from PyQt5.QtWidgets import *
 import os
 import locale
-import subprocess
-import json
+# import subprocess
+# import json
+import applescript
 # End of imports
 
 
 # main function
 def main(langauage):
     print("We are on macOS!!!")
-    scan_screens()
+    list_monitor = scan_screens()
+    print(list_monitor)
     main_app = QApplication([])
     main_window = QWidget()
     main_window.setMinimumSize(852, 480)
@@ -77,17 +79,26 @@ def center(window_to_center):
 
 
 def scan_screens():
-    output = subprocess.getstatusoutput("system_profiler SPDisplaysDataType -json")
-    if output[0] == 0:
-        # print(output[1])
-        json_output = json.loads(output[1])
-        # print(json_output)
-        # sPDisplaysDataType = json_output["SPDisplaysDataType"]
-        # print(type(sPDisplaysDataType))
-        output_array = (json_output["SPDisplaysDataType"])
-        output_dict = output_array[0]
-        list_displays = output_dict["spdisplays_ndrvs"]
-        print(len(list_displays))
-
+    # output = subprocess.getstatusoutput("system_profiler SPDisplaysDataType -json")
+    script = applescript.run('tell application "System Events" to get name of desktops')
+    print("Exit code is: " + str(script.code))
+    if script.code == 0:
+        list_of_monitor = script.out.split(", ")
+        return list_of_monitor
     else:
-        print("Error! Can't get the information from command in terminal!")
+        print("Oh oh! There's an error while executing the script! The error is the following: " + script.err)
+    # 'tell application "System Events" to get name of desktops'
+    # if output[0] == 0:
+    #     # print(output[1])
+    #     json_output = json.loads(output[1])
+    #     # print(json_output)
+    #     # sPDisplaysDataType = json_output["SPDisplaysDataType"]
+    #     # print(type(sPDisplaysDataType))
+    #     output_array = (json_output["SPDisplaysDataType"])
+    #     output_dict = output_array[0]
+    #     list_displays = output_dict["spdisplays_ndrvs"]
+    #     print(len(list_displays))
+    #     print(list_displays)
+    #
+    # else:
+    #     print("Error! Can't get the information from command in terminal!")
