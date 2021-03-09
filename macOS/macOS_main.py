@@ -56,15 +56,43 @@ def main(langauage):
 def initial_setup():
     custom_wallpaper_folder_path = "~/Pictures/Smart-Wallpaper/"
     my_custom_dir = os.path.expanduser(custom_wallpaper_folder_path)  # Custom absolute folder path with username in it.
+    subfolder1 = "~/Pictures/Smart-Wallpaper/Professional"
+    subfolder2 = "~/Pictures/Smart-Wallpaper/Public"
+    subfolder3 = "~/Pictures/Smart-Wallpaper/Private"
+    subfolder4 = "~/Pictures/Smart-Wallpaper/Other"
+    my_custom_subfolder1 = os.path.expanduser(subfolder1)
+    my_custom_subfolder2 = os.path.expanduser(subfolder2)
+    my_custom_subfolder3 = os.path.expanduser(subfolder3)
+    my_custom_subfolder4 = os.path.expanduser(subfolder4)
     if os.path.isdir(my_custom_dir):
-        print("The folder is already there! Yay!")
+        print("The folder is already there! Yay! Let's check if subfolders are there too!")
         print(os.path.expanduser(custom_wallpaper_folder_path))
+        if os.path.isdir(my_custom_subfolder1):
+            pass
+        else:
+            os.mkdir(my_custom_subfolder1)
+        if os.path.isdir(my_custom_subfolder2):
+            pass
+        else:
+            os.mkdir(my_custom_subfolder2)
+        if os.path.isdir(my_custom_subfolder3):
+            pass
+        else:
+            os.mkdir(my_custom_subfolder3)
+        if os.path.isdir(my_custom_subfolder4):
+            pass
+        else:
+            os.mkdir(my_custom_subfolder4)
     else:
         print("Need to create the folder so the app can work properly.")
         try:
             # Create target Directory
             os.mkdir(my_custom_dir)
             print("Directory ", my_custom_dir, " Created ")
+            os.mkdir(my_custom_subfolder1)
+            os.mkdir(my_custom_subfolder2)
+            os.mkdir(my_custom_subfolder3)
+            os.mkdir(my_custom_subfolder4)
         except FileExistsError:
             print("Directory ", my_custom_dir, " already exists")
     test_language = locale.setlocale(locale.LC_ALL, "")
