@@ -21,7 +21,7 @@ def main(langauage):
     y_value = int(main_window.height() / 4)
     dict_screens = {}
     # dict_screens_full = display_screens(list_monitor, x_value, y_value, main_window, langauage, dict_screens)
-    display_screens(list_monitor, x_value, y_value, main_window, langauage, dict_screens)
+    display_screens(list_monitor, y_value, main_window, langauage, dict_screens)
     print(dict_screens)
     presentation_button = QPushButton(main_window)
     public_button = QPushButton(main_window)
@@ -149,7 +149,7 @@ def scan_screens():
     #     print("Error! Can't get the information from command in terminal!")
 
 
-def display_screens(list_of_avaible_screens, x, y, main_window, language, dict_screens):
+def display_screens(list_of_avaible_screens, y, main_window, language, dict_screens):
     if dict_screens != {}:
         print("empty")
     splitting = (main_window.width() / (len(list_of_avaible_screens) + 1))
@@ -215,7 +215,7 @@ def display_screens(list_of_avaible_screens, x, y, main_window, language, dict_s
     # return dict_screens
 
 
-def destrcution(dict_screens, main_window):
+def destrcution(dict_screens):
     if dict_screens != {}:
         print("Not empty")
         print(dict_screens)
@@ -235,7 +235,7 @@ def destrcution(dict_screens, main_window):
 
 
 def reset_screens_info(x, y, main_window, language, dict_screens):
-    destrcution(dict_screens, main_window)
+    destrcution(dict_screens)
     list_reset = scan_screens()
-    display_screens(list_reset, x, y, main_window, language, dict_screens)
+    display_screens(list_reset, y, main_window, language, dict_screens)
     print("This is the dictionnary of the avaible screens right now: " + str(dict_screens))
