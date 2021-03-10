@@ -2,8 +2,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import os
 import locale
-# import subprocess
-# import json
 import applescript
 from functools import partial
 # End of imports
@@ -20,7 +18,6 @@ def main(langauage):
     x_value = int(main_window.width() / 8)
     y_value = int(main_window.height() / 4)
     dict_screens = {}
-    # dict_screens_full = display_screens(list_monitor, x_value, y_value, main_window, langauage, dict_screens)
     display_screens(list_monitor, y_value, main_window, langauage, dict_screens)
     print(dict_screens)
     presentation_button = QPushButton(main_window)
@@ -48,7 +45,6 @@ def main(langauage):
     other_button.move(((7 * x_value) - (other_button.size().width()/2)), (3 * y_value))
     refresh_button.move((main_window.width() - 10 - refresh_button.width()), 10)
     refresh_button.clicked.connect(lambda: reset_screens_info(x_value, y_value, main_window, langauage, dict_screens))
-    # delete_button.clicked.connect(lambda: destrcution(dict_screens, main_window, delete_button))
     other_button.setEnabled(False)
     main_window.show()
     center(main_window)
@@ -121,7 +117,6 @@ def center(window_to_center):
 
 
 def scan_screens():
-    # output = subprocess.getstatusoutput("system_profiler SPDisplaysDataType -json")
     script = applescript.run('tell application "System Events" to get name of desktops')
     print("Exit code is: " + str(script.code))
     if script.code == 0:
@@ -132,21 +127,6 @@ def scan_screens():
         return list_of_monitor
     else:
         print("Oh oh! There's an error while executing the script! The error is the following: " + script.err)
-    # 'tell application "System Events" to get name of desktops'
-    # if output[0] == 0:
-    #     # print(output[1])
-    #     json_output = json.loads(output[1])
-    #     # print(json_output)
-    #     # sPDisplaysDataType = json_output["SPDisplaysDataType"]
-    #     # print(type(sPDisplaysDataType))
-    #     output_array = (json_output["SPDisplaysDataType"])
-    #     output_dict = output_array[0]
-    #     list_displays = output_dict["spdisplays_ndrvs"]
-    #     print(len(list_displays))
-    #     print(list_displays)
-    #
-    # else:
-    #     print("Error! Can't get the information from command in terminal!")
 
 
 def display_screens(list_of_avaible_screens, y, main_window, language, dict_screens):
@@ -154,15 +134,7 @@ def display_screens(list_of_avaible_screens, y, main_window, language, dict_scre
         print("empty")
     splitting = (main_window.width() / (len(list_of_avaible_screens) + 1))
     print(splitting)
-    # index_value = len(list_of_avaible_screens)
-    # horizontal_box = QHBoxLayout(main_window)
-    # horizontal_box2 = QHBoxLayout(main_window)
-
     for index, item in enumerate(list_of_avaible_screens):
-        # dict_screens[item] = {}
-        # group = QGroupBox(main_window)
-        # print(index, item)
-        # # horizontal_box = QHBoxLayout(group)
         screen_icon = QPixmap("Ressources/icon_screen.png")
         screen_icon = screen_icon.scaledToWidth(160)
         screen_icon_label = QLabel(main_window)
@@ -170,19 +142,12 @@ def display_screens(list_of_avaible_screens, y, main_window, language, dict_scre
         dict_screens["icon{0}".format(index)] = screen_icon_label
         screen_icon_label.show()
         screen_icon_label.move(((index + 1) * splitting) - 80, y)
-        # screen_icon_label.show()
-        # dict_screens[item]["image"] = screen_icon_label
-        # radio_button = QRadioButton(main_window)
-        # dict_screens[item]["radio_button"] = radio_button
-        # # horizontal_box.addWidget(radio_button)
-        # # horizontal_box.addWidget(screen_icon_label)
         if "ACL" in item:
             check_box = QCheckBox((item + "*"), main_window)
             dict_screens["check_box{0}".format(index)] = check_box
             print(dict_screens)
             check_box.show()
             screen_notice = QLabel(main_window)
-            # group.setTitle(item + "*")
             if language == "fr":
                 screen_notice.setText("* Le nom de cet écran correspond probablement à l'écran interne de votre Mac.")
             else:
@@ -196,33 +161,14 @@ def display_screens(list_of_avaible_screens, y, main_window, language, dict_scre
             dict_screens["check_box{0}".format(index)] = check_box
             print(dict_screens)
             check_box.show()
-            # group.setTitle(item)
-            # screen_label = QLabel(main_window)
-            # screen_label.setText(item)
             print(dict_screens)
         check_box.move(((index + 1) * splitting) - (check_box.width() / 2), (2 * y) + 20)
-        # # horizontal_box.addWidget(screen_icon_label)
-        # # horizontal_box2.addWidget(screen_label)
-        # # dict_screens[item]["group"] = group
-        # print(index)
-        # x_value_for_group = (main_window.width() / ((len(list_of_avaible_screens)) + 1))
-        # print(x_value_for_group)
-        # group_value = (radio_button.width() + screen_icon_label.width())/2
-        # print(group_value)
-        # x_place = ((x_value_for_group * ((int(index)) + 1)) - group_value)
-        # print(x_place)
-        # # group.move(x_place, (0.75 * y))
-    # return dict_screens
 
 
 def destrcution(dict_screens):
     if dict_screens != {}:
         print("Not empty")
         print(dict_screens)
-        # if "radio_button0" in dict_screens:
-        #     dict_screens["radio_button0"].deleteLater()
-        #     del dict_screens["radio_button0"]
-        #     print(dict_screens)
         for key in dict_screens:
             dict_screens[key].close()
             print(dict_screens)
