@@ -44,6 +44,10 @@ def main(langauage):
     other_button.move(((7 * x_value) - (other_button.size().width()/2)), (3 * y_value))
     refresh_button.move((main_window.width() - 10 - refresh_button.width()), 10)
     refresh_button.clicked.connect(lambda: reset_screens_info(y_value, main_window, langauage, dict_screens))
+    presentation_button.clicked.connect(lambda: set_professional(dict_screens))
+    public_button.clicked.connect(lambda: set_public(dict_screens))
+    private_button.clicked.connect(lambda: set_private(dict_screens))
+    other_button.clicked.connect(lambda: set_other(dict_screens))
     other_button.setEnabled(False)
     main_window.show()
     center(main_window)
@@ -183,3 +187,19 @@ def reset_screens_info(y, main_window, language, dict_screens):
     list_reset = scan_screens()
     display_screens(list_reset, y, main_window, language, dict_screens)
     print("This is the dictionnary of the avaible screens right now: " + str(dict_screens))
+
+
+def set_public(dict_screens):
+    print(dict_screens)
+
+
+def set_professional(dict_screens):
+    print(dict_screens)
+
+
+def set_private(dict_screens):
+    print(dict_screens)
+
+
+def set_other(dict_screens):
+    print(dict_screens)
