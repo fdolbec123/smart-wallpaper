@@ -3,7 +3,6 @@ from PyQt5.QtGui import *
 import os
 import locale
 import applescript
-from functools import partial
 # End of imports
 
 
@@ -44,11 +43,10 @@ def main(langauage):
     private_button.move(((5 * x_value) - (private_button.size().width()/2)), (3 * y_value))
     other_button.move(((7 * x_value) - (other_button.size().width()/2)), (3 * y_value))
     refresh_button.move((main_window.width() - 10 - refresh_button.width()), 10)
-    refresh_button.clicked.connect(lambda: reset_screens_info(x_value, y_value, main_window, langauage, dict_screens))
+    refresh_button.clicked.connect(lambda: reset_screens_info(y_value, main_window, langauage, dict_screens))
     other_button.setEnabled(False)
     main_window.show()
     center(main_window)
-
     main_app.exec_()
 
 
@@ -180,7 +178,7 @@ def destrcution(dict_screens):
     del dict_screens
 
 
-def reset_screens_info(x, y, main_window, language, dict_screens):
+def reset_screens_info(y, main_window, language, dict_screens):
     destrcution(dict_screens)
     list_reset = scan_screens()
     display_screens(list_reset, y, main_window, language, dict_screens)
