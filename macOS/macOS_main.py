@@ -3,6 +3,7 @@ from PyQt5.QtGui import *
 import os
 import locale
 import applescript
+import random
 # End of imports
 
 
@@ -17,6 +18,7 @@ def main(langauage):
     x_value = int(main_window.width() / 8)
     y_value = int(main_window.height() / 4)
     dict_screens = {}
+    ticked_box = []
     display_screens(list_monitor, y_value, main_window, langauage, dict_screens)
     print(dict_screens)
     presentation_button = QPushButton(main_window)
@@ -44,10 +46,10 @@ def main(langauage):
     other_button.move(((7 * x_value) - (other_button.size().width()/2)), (3 * y_value))
     refresh_button.move((main_window.width() - 10 - refresh_button.width()), 10)
     refresh_button.clicked.connect(lambda: reset_screens_info(y_value, main_window, langauage, dict_screens))
-    presentation_button.clicked.connect(lambda: set_professional(dict_screens))
-    public_button.clicked.connect(lambda: set_public(dict_screens))
-    private_button.clicked.connect(lambda: set_private(dict_screens))
-    other_button.clicked.connect(lambda: set_other(dict_screens))
+    presentation_button.clicked.connect(lambda: set_professional(dict_screens, list_monitor, ticked_box))
+    public_button.clicked.connect(lambda: set_public(dict_screens, list_monitor, ticked_box))
+    private_button.clicked.connect(lambda: set_private(dict_screens, list_monitor, ticked_box))
+    other_button.clicked.connect(lambda: set_other(dict_screens, list_monitor, ticked_box))
     other_button.setEnabled(False)
     main_window.show()
     center(main_window)
@@ -189,17 +191,121 @@ def reset_screens_info(y, main_window, language, dict_screens):
     print("This is the dictionnary of the avaible screens right now: " + str(dict_screens))
 
 
-def set_public(dict_screens):
+def set_public(dict_screens, list_of_monitor, ticked_box):
     print(dict_screens)
+    for key in dict_screens:
+        print(dict_screens[key])
+        if type(dict_screens[key]) is QCheckBox:
+            print("It's a checkbox!!!")
+            if dict_screens[key].isChecked():
+                print("ticked!")
+                desktop_choosed_str = str(key)
+                number_desktop = desktop_choosed_str[-1]
+                print(list_of_monitor[int(number_desktop)])
+                subfolder = "~/Pictures/Smart-Wallpaper/Public/"
+                my_custom_subfolder = os.path.expanduser(subfolder)
+                file_picked = random.choice(os.listdir(my_custom_subfolder))
+                while file_picked.startswith("."):
+                    file_picked = random.choice(os.listdir(my_custom_subfolder))
+                    print(file_picked)
+                print(file_picked)
+                print(str(my_custom_subfolder))
+                script_to_run = 'tell application "System Events" to set picture of desktop "' + \
+                                str(list_of_monitor[int(number_desktop)]) + '" to "' + str(my_custom_subfolder) \
+                                + file_picked + '"'
+                print(script_to_run)
+                change_picture = applescript.run(script_to_run)
+                print("Exit code is : " + str(change_picture.code))
+            else:
+                print("not ticked")
+        print(ticked_box)
 
 
-def set_professional(dict_screens):
+def set_professional(dict_screens, list_of_monitor, ticked_box):
     print(dict_screens)
+    for key in dict_screens:
+        print(dict_screens[key])
+        if type(dict_screens[key]) is QCheckBox:
+            print("It's a checkbox!!!")
+            if dict_screens[key].isChecked():
+                print("ticked!")
+                desktop_choosed_str = str(key)
+                number_desktop = desktop_choosed_str[-1]
+                print(list_of_monitor[int(number_desktop)])
+                subfolder = "~/Pictures/Smart-Wallpaper/Professional/"
+                my_custom_subfolder = os.path.expanduser(subfolder)
+                file_picked = random.choice(os.listdir(my_custom_subfolder))
+                while file_picked.startswith("."):
+                    file_picked = random.choice(os.listdir(my_custom_subfolder))
+                    print(file_picked)
+                print(file_picked)
+                print(str(my_custom_subfolder))
+                script_to_run = 'tell application "System Events" to set picture of desktop "' + \
+                                str(list_of_monitor[int(number_desktop)]) + '" to "' + str(my_custom_subfolder) \
+                                + file_picked + '"'
+                print(script_to_run)
+                change_picture = applescript.run(script_to_run)
+                print("Exit code is : " + str(change_picture.code))
+            else:
+                print("not ticked")
+        print(ticked_box)
 
 
-def set_private(dict_screens):
+def set_private(dict_screens, list_of_monitor, ticked_box):
     print(dict_screens)
+    for key in dict_screens:
+        print(dict_screens[key])
+        if type(dict_screens[key]) is QCheckBox:
+            print("It's a checkbox!!!")
+            if dict_screens[key].isChecked():
+                print("ticked!")
+                desktop_choosed_str = str(key)
+                number_desktop = desktop_choosed_str[-1]
+                print(list_of_monitor[int(number_desktop)])
+                subfolder = "~/Pictures/Smart-Wallpaper/Private/"
+                my_custom_subfolder = os.path.expanduser(subfolder)
+                file_picked = random.choice(os.listdir(my_custom_subfolder))
+                while file_picked.startswith("."):
+                    file_picked = random.choice(os.listdir(my_custom_subfolder))
+                    print(file_picked)
+                print(file_picked)
+                print(str(my_custom_subfolder))
+                script_to_run = 'tell application "System Events" to set picture of desktop "' + \
+                                str(list_of_monitor[int(number_desktop)]) + '" to "' + str(my_custom_subfolder) \
+                                + file_picked + '"'
+                print(script_to_run)
+                change_picture = applescript.run(script_to_run)
+                print("Exit code is : " + str(change_picture.code))
+            else:
+                print("not ticked")
+        print(ticked_box)
 
 
-def set_other(dict_screens):
+def set_other(dict_screens, list_of_monitor, ticked_box):
     print(dict_screens)
+    for key in dict_screens:
+        print(dict_screens[key])
+        if type(dict_screens[key]) is QCheckBox:
+            print("It's a checkbox!!!")
+            if dict_screens[key].isChecked():
+                print("ticked!")
+                desktop_choosed_str = str(key)
+                number_desktop = desktop_choosed_str[-1]
+                print(list_of_monitor[int(number_desktop)])
+                subfolder = "~/Pictures/Smart-Wallpaper/Other/"
+                my_custom_subfolder = os.path.expanduser(subfolder)
+                file_picked = random.choice(os.listdir(my_custom_subfolder))
+                while file_picked.startswith("."):
+                    file_picked = random.choice(os.listdir(my_custom_subfolder))
+                    print(file_picked)
+                print(file_picked)
+                print(str(my_custom_subfolder))
+                script_to_run = 'tell application "System Events" to set picture of desktop "' + \
+                                str(list_of_monitor[int(number_desktop)]) + '" to "' + str(my_custom_subfolder) \
+                                + file_picked + '"'
+                print(script_to_run)
+                change_picture = applescript.run(script_to_run)
+                print("Exit code is : " + str(change_picture.code))
+            else:
+                print("not ticked")
+        print(ticked_box)
