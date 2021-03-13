@@ -13,6 +13,8 @@ def main(langauage):
     list_monitor = scan_screens()
     print(list_monitor)
     main_app = QApplication([])
+    app_icon = QIcon("Ressources/Icon-MacOS-512x512_2x.png")
+    main_app.setWindowIcon(app_icon)
     main_window = QWidget()
     main_window.setMinimumSize(852, 480)
     x_value = int(main_window.width() / 8)
